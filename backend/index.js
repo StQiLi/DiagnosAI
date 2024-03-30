@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors({ origin: true }));
 
 app.post("/authenticate", async (req, res) => {
-
+    console.log("hi");
   const { username } = req.body;
 
   try {
