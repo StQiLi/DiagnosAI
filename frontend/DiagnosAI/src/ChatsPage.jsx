@@ -7,7 +7,14 @@ const ChatsPage = (props) => {
     const handleNewMessage = (chatId, message) => {
         console.log("Chat ID:", chatId);
         console.log("Message details:", message.text);
-
+        
+        axios.post('http://localhost:3002/process_message', { chatId, message })
+            .then(r => {
+                console.log(r.data);
+            })
+            .catch(error => {
+                console.error('Error sending message to server:', error);
+            });
     };
 
     const chatProps = useMultiChatLogic(
