@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: true }));
 
+
 async function createStreamChat(chatInput) {
   const chat = generativeModel.startChat({});
   //const chatInput1 = 'How can I learn more about that?';
