@@ -1,5 +1,6 @@
 import React from 'react';
 import { MultiChatSocket, MultiChatWindow, useMultiChatLogic } from 'react-chat-engine-advanced'
+import axios from "axios";
 
 const ChatsPage = (props) => {
     console.log(props.user);
@@ -7,14 +8,17 @@ const ChatsPage = (props) => {
     const handleNewMessage = (chatId, message) => {
         console.log("Chat ID:", chatId);
         console.log("Message details:", message.text);
-        
-        axios.post('http://localhost:3002/process_message', { chatId, message })
+        console.log("Username: ", message.sender.username);
+        if (message.sender.username != "DiagnosAI") {
+            axios.post('http://localhost:3001/process_message', { chatId, message })
             .then(r => {
                 console.log(r.data);
             })
             .catch(error => {
                 console.error('Error sending message to server:', error);
             });
+        }
+
     };
 
     const chatProps = useMultiChatLogic(
