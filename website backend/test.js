@@ -1,22 +1,31 @@
 const { VertexAI } = require('@google-cloud/vertexai');
 
-// Initialize Vertex with your Cloud project and location
 const vertexAI = new VertexAI({ project: 'iron-crane-418815', location: 'us-central1' });
+const generativeModel = vertexAI.getGenerativeModel({ model: 'gemini-pro' });
 
-// Instantiate the model
-const generativeModel = vertexAI.getGenerativeModel({ model: 'gemini-1.0-pro' });
+let chatHistory = []; // Initialize an empty array to store chat history
 
-async function createStreamChat() {
-  const chat = generativeModel.startChat({});
-  const chatInput1 = 'How can I learn more about that?';
+async function startChatWithHistory() {
+  const chat = generativeModel.startChat({
+    history: chatHistory, // Pass the chat history to the model
+    generationConfig: {
+      maxOutputTokens: 100,
+    },
+  });
 
-  console.log(`User: ${chatInput1}`);
+  const msg = "What's your favorite season of the year?";
+  const result = await chat.sendMessage(msg);
+  console.log(result.response.text);
 
-  const result1 = await chat.sendMessageStream(chatInput1);
-  for await (const item of result1.stream) {
-    console.log(item.candidates[0].content.parts[0].text);
+  // Update chat history with the latest message
+  chatHistory.push({ role: "user", parts: msg });
+  chatHistory.push({ role: "model", parts: result.response.text });
+
+  // Optionally, you can limit the chat history size to avoid consuming too much memory
+  // For example, you can keep only the last 10 messages
+  if (chatHistory.length > 10) {
+    chatHistory = chatHistory.slice(-10);
   }
 }
 
-// Call the function when needed
-createStreamChat();
+startChatWithHistory();
