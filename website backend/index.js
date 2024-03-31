@@ -69,7 +69,7 @@ app.post("/process_message", async (req, res) => {
     str = "It sounds like you may be experiencing an anxiety disorder. Psychological support and therapy could be beneficial.";
   }
   if (req.body.message.text === "I have a sore throat.") {
-    str = "Do you also have a sore throat?";
+    str = "Do you also have a fever?";
   }
   if (req.body.message.text === "No, I don't.") {
     str = "It's likely a mild throat infection. Stay hydrated and rest. If the symptom persists, please consult a doctor.";
