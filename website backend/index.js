@@ -26,7 +26,7 @@ app.post("/process_message", async (req, res) => {
   const ds = `${d.getUTCFullYear()}-${d.getUTCMonth() + 1 >= 10 ? d.getUTCMonth() + 1 : '0' + (d.getUTCMonth() + 1)}-${d.getUTCDate() >= 10 ? d.getUTCDate() : '0' + d.getUTCDate()} ${d.getUTCHours() >= 10 ? d.getUTCHours() : '0' + d.getUTCHours()}:${d.getUTCMinutes() >= 10 ? d.getUTCMinutes() : '0' + d.getUTCMinutes()}:${d.getUTCSeconds() >= 10 ? d.getUTCSeconds() : '0' + d.getUTCSeconds()}.${d.getUTCMilliseconds()}+00:00`;
   console.log(ds);
   let text = "jello";
-  console.log(req.message.text);
+  // console.log(req.message.text);
 
   fetch("https://api.chatengine.io/chats/240626/messages/", {
   "headers": {
