@@ -15,9 +15,11 @@ const AuthPage = (props) => {
     return (
       <div className="background">
         <form onSubmit={onSubmit} className="form-card">
-          <div className="form-title">Welcome 👋</div>
+          <div className="form-title">Welcome to DiagnosAI👋</div>
   
-          <div className="form-subtitle">Set a username to get started</div>
+          <div className="form-subtitle">Set a username to get started.</div>
+          <div className="form-subtitle">Disclaimer: This is not a replacement for a doctor.</div>
+
   
           <div className="auth">
             <div className="auth-label">Username</div>
