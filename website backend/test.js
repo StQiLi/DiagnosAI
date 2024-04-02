@@ -1,15 +1,13 @@
 const { VertexAI } = require('@google-cloud/vertexai');
 
-const vertexAI = new VertexAI({ project: 'iron-crane-418815', location: 'us-central1' });
-const generativeModel = vertexAI.getGenerativeModel({ model: 'gemini-pro' });
-
-let chatHistory = []; // Initialize an empty array to store chat history
+const vertexAI = new VertexAI({ project: 'diagnosai', location: 'us-east1' });
+const generativeModel = vertexAI.getGenerativeModel({ model: 'gemini-1.0-pro' });
 
 async function createStreamChat(chatInput1) {
   const chat = generativeModel.startChat({});
-  //const chatInput1 = 'How can I learn more about that?';
+  chatInput1 = 'How can I learn more about gemini?';
 
-  //console.log(`User: ${chatInput1}`);
+  console.log(`User: ${chatInput1}`);
 
   const result1 = await chat.sendMessageStream(chatInput1);
   let str = "";
@@ -17,12 +15,11 @@ async function createStreamChat(chatInput1) {
     console.log(item.candidates[0].content.parts[0].text);
     str = str + (item.candidates[0].content.parts[0].text);
   }
-  return str;
+  //return str;
 }
 
-await startChatWithHistory();
+createStreamChat();
 
-console.log(chatHistory);
 
 
 
